@@ -22,6 +22,5 @@ _start:
     popq %rbp
 
     movq $60, %rax
-    popq %rbp
     xor %rdi, %rdi
     syscall
