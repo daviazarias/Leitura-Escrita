@@ -20,6 +20,8 @@ leitura:
     ret
 
 ler_int:
+    pushq %rbp
+    movq %rsp, %rbp
     subq $12, %rsp          # Aumentando a pilha.
 
     movq %rdi, %r10         # %r10 tem o endereço passado para a função. 
@@ -80,6 +82,7 @@ ler_int:
 
 .fim_l:
     addq $12, %rsp          # Restaurando o tamanho inicial da pilha.
+    popq %rbp
     ret
 
 # -----------------------------------------------------------------------------------------------
