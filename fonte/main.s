@@ -15,7 +15,7 @@
 _start:
     push %rbp
     movq %rsp, %rbp
-    subq $8, %rsp
+    subq $16, %rsp
 
     movq $1, %rax
     movq $1, %rdi
@@ -47,7 +47,7 @@ _start:
     movl %eax, %edi
     call escrever_int
 
-    addq $8, %rsp
+    addq $16, %rsp
     popq %rbp
 
     movq $60, %rax
