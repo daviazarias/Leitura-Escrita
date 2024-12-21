@@ -22,7 +22,7 @@ leitura:
 ler_int:
     pushq %rbp
     movq %rsp, %rbp
-    subq $12, %rsp          # Aumentando a pilha.
+    subq $16, %rsp          # Aumentando a pilha.
 
     movq %rdi, %r10         # %r10 tem o endereço passado para a função. 
     movq %rsp, %rdi         # %rdi agora tem o endereço para o início do buffer.
@@ -81,7 +81,7 @@ ler_int:
     negl (%r10)             # 
 
 .fim_l:
-    addq $12, %rsp          # Restaurando o tamanho inicial da pilha.
+    addq $16, %rsp          # Restaurando o tamanho inicial da pilha.
     popq %rbp
     ret
 
@@ -92,7 +92,7 @@ ler_int:
 escrever_int:
     pushq %rbp
     movq %rsp, %rbp
-    subq $12, %rsp          # 'c' vai de (%rsp) a 11(%rsp).
+    subq $16, %rsp          # 'c' vai de (%rsp) a 11(%rsp).
 
     movb $10, 11(%rsp)      # Último caractere da string é um 'ENTER'.
     movb $48, 10(%rsp)      # Penúltimo caractere da string é '0'. (Caso o valor a ser escrito seja 0).
@@ -101,23 +101,23 @@ escrever_int:
 
     movl %edi, %eax         # %eax contém o número a ser escrito.
     movl $10, %r10d         # %r10 = 10 (permanente)
-    xor %r13d, %r13d        # %r13d = 0 (permanente)
-    movl $45, %r14d         # %r14d = - (permanente)
+    xor %r8d, %r8d          # %r8d = 0 (permanente)
+    movl $45, %r11d         # %r11d = - (permanente)
     xor %esi, %esi          # %esi = sig
     movl %r10d, %ecx        # %ecx contém o valor do deslocamento no buffer.
     
     movl %r10d, %r9d        # %r9d = 9
     dec %r9d                #
 
-    cmpl %eax, %r13d        # Se o número a ser escrito for '0', decrementa 
+    cmpl %eax, %r8d         # Se o número a ser escrito for '0', decrementa 
     cmovel %r9d, %ecx       # o índice em %ecx.
     jle .whi
 
     negl %eax               # Caso o valor no acumulador seja negativo, torna-o positivo
-    movl %r14d, %esi        # e faz %esi receber o caractere '-'.
+    movl %r11d, %esi        # e faz %esi receber o caractere '-'.
 
 .whi:
-    cmpl %eax, %r13d        # Encerra o laço caso o acumulador
+    cmpl %eax, %r8d         # Encerra o laço caso o acumulador
     je .sign                # seja igual a 0.
 
     xor %edx, %edx          # Zerar %edx para a divisão.
@@ -129,7 +129,7 @@ escrever_int:
     jmp .whi                # Retorna ao laço.
 
 .sign:
-    cmpl %r14d, %esi        # Se o valor em %esi não for '-',
+    cmpl %r11d, %esi        # Se o valor em %esi não for '-',
     jne .fim_e              # vá para 'fim_e'.
 
     movb %sil, (%rsp, %rcx) # Caso contrário, acrescente o caractere '-' ao buffer,
@@ -144,6 +144,6 @@ escrever_int:
     subq %rcx, %rdx         # Escreve o buffer na saída padrão.
     syscall                 # 
 
-    addq $12, %rsp
+    addq $16, %rsp
     popq %rbp
     ret
