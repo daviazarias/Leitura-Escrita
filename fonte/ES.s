@@ -1,7 +1,7 @@
 .section .note.GNU-stack,"",@progbits
 
-.bss
-    sinal: .byte
+.data
+    sinal: .byte 0
 
 .text
 
