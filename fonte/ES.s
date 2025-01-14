@@ -1,7 +1,7 @@
 .section .note.GNU-stack,"",@progbits
 
 .data
-    sinal: .byte 0
+    sinal: .byte 0 # Seria melhor usar um registrador. Isso foi apenas um teste.
 
 .text
 
