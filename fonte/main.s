@@ -17,27 +17,27 @@ _start:
     movq %rsp, %rbp
     subq $16, %rsp
 
-    movq $1, %rax
-    movq $1, %rdi
-    movq $TAM1, %rdx
+    movl $1, %eax
+    movl $1, %edi
+    movl $TAM1, %edx
     leaq MSG1(%rip), %rsi
     syscall
 
     movq %rsp, %rdi
     call ler_int
 
-    movq $1, %rax
-    movq $1, %rdi
-    movq $TAM2, %rdx
+    movl $1, %eax
+    movl $1, %edi
+    movl $TAM2, %edx
     leaq MSG2(%rip), %rsi
     syscall
 
     leaq 4(%rsp), %rdi
     call ler_int
 
-    movq $1, %rax
-    movq $1, %rdi
-    movq $TAM3, %rdx
+    movl $1, %eax
+    movl $1, %edi
+    movl $TAM3, %edx
     leaq MSG3(%rip), %rsi
     syscall
 
@@ -50,6 +50,6 @@ _start:
     addq $16, %rsp
     popq %rbp
 
-    movq $60, %rax
-    xor %rdi, %rdi
+    movl $60, %eax
+    xorl %edi, %edi
     syscall

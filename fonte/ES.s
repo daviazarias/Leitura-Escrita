@@ -11,10 +11,10 @@
 # Tamanho da string a ser lida deve ser colocado em %rsi.
 
 leitura:
-    xor %rax, %rax
-    mov %rsi, %rdx
-    mov %rdi, %rsi
-    xor %rdi, %rdi
+    xorl %eax, %eax
+    movl %esi, %edx
+    movq %rdi, %rsi
+    xorl %edi, %edi
     syscall
 
     ret
@@ -37,10 +37,10 @@ ler_int:
 
     # Carregando valores em registradores.
     movl $10, %r9d          # R9d = 10
-    xor %ecx, %ecx          #
+    xorl %ecx, %ecx          #
     dec %ecx                # ECX = -1
-    xor %eax, %eax          # EAX (acumulador) = EDX = 0
-    xor %edx, %edx          # Para não dar erro na multiplicação.
+    xorl %eax, %eax          # EAX (acumulador) = EDX = 0
+    xorl %edx, %edx          # Para não dar erro na multiplicação.
 
 # Percorrendo a string de caracteres.
 .ite:
@@ -101,9 +101,9 @@ escrever_int:
 
     movl %edi, %eax         # %eax contém o número a ser escrito.
     movl $10, %r10d         # %r10 = 10 (permanente)
-    xor %r8d, %r8d          # %r8d = 0 (permanente)
+    xorl %r8d, %r8d          # %r8d = 0 (permanente)
     movl $45, %r11d         # %r11d = - (permanente)
-    xor %esi, %esi          # %esi = sig
+    xorl %esi, %esi          # %esi = sig
     movl %r10d, %ecx        # %ecx contém o valor do deslocamento no buffer.
     
     movl %r10d, %r9d        # %r9d = 9
