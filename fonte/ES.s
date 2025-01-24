@@ -101,24 +101,23 @@ escrever_int:
 
     movl %edi, %eax         # %eax contém o número a ser escrito.
     movl $10, %r10d         # %r10 = 10 (permanente)
-    xorl %r8d, %r8d          # %r8d = 0 (permanente)
     movl $45, %r11d         # %r11d = - (permanente)
-    xorl %esi, %esi          # %esi = sig
+    xorl %esi, %esi         # %esi = sig
     movl %r10d, %ecx        # %ecx contém o valor do deslocamento no buffer.
     
     movl %r10d, %r9d        # %r9d = 9
     dec %r9d                #
 
-    cmpl %eax, %r8d         # Se o número a ser escrito for '0', decrementa 
-    cmovel %r9d, %ecx       # o índice em %ecx.
-    jle .whi
+    test %eax, %eax         # Se o número a ser escrito for '0', decrementa 
+    cmovzl %r9d, %ecx       # o índice em %ecx.
+    jns .whi
 
     negl %eax               # Caso o valor no acumulador seja negativo, torna-o positivo
     movl %r11d, %esi        # e faz %esi receber o caractere '-'.
 
 .whi:
-    cmpl %eax, %r8d         # Encerra o laço caso o acumulador
-    je .sign                # seja igual a 0.
+    test %eax, %eax         # Encerra o laço caso o acumulador
+    jz .sign                # seja igual a 0.
 
     xor %edx, %edx          # Zerar %edx para a divisão.
     divl %r10d              # Divide o acumulador por 10.
